@@ -1,24 +1,40 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Mission5Assignment.Models;
+using Mission5Assignment.Services;
 
-namespace Mission5Assignment.Controllers;
-
-public class HomeController : Controller
+namespace Mission5Assignment.Controllers
 {
-    public IActionResult Index()
+    // This controller handles requests for the Home section of the site
+    public class HomeController : Controller
     {
-        return View();
-    }
+        // This is a private field that will store our API service
+        private readonly SmashBrosApiService _api;
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        // Constructor for the controller
+        // ASP.NET automatically injects the SmashBrosApiService here
+        // because we registered it in Program.cs
+        public HomeController(SmashBrosApiService api)
+        {
+            _api = api;
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        // This action loads the main home page
+        // URL: /Home/Index  or just /
+        public IActionResult Index() => View();
+
+        // This action loads the tutor calculator page
+        // URL: /Home/Tutor
+        public IActionResult Tutor() => View();
+
+        // This action loads the Smash Characters page
+        // It calls the external API to get character data
+        public async Task<IActionResult> Characters()
+        {
+            // Call the API service to get the list of characters
+            var characters = await _api.GetUltimateCharactersAsync();
+
+            // Pass the character list into the view
+            // The view will use this data to display the characters
+            return View(characters);
+        }
     }
 }

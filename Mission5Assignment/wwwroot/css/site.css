@@ -1,31 +1,451 @@
-html {
-  font-size: 14px;
-}
+/* =========================
+   FIGHTING GAME THEME UI
+   ========================= */
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Background: arena energy + subtle scanlines */
 body {
-  margin-bottom: 60px;
+  color: #f7f7ff;
+  background:
+          radial-gradient(circle at 20% 10%, rgba(255, 60, 60, 0.22), transparent 45%),
+          radial-gradient(circle at 80% 20%, rgba(90, 120, 255, 0.22), transparent 45%),
+          radial-gradient(circle at 50% 85%, rgba(80, 255, 170, 0.14), transparent 52%),
+          linear-gradient(180deg, #0a0c18 0%, #070812 35%, #060610 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* optional scanlines overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+          repeating-linear-gradient(
+                  to bottom,
+                  rgba(255,255,255,0.04),
+                  rgba(255,255,255,0.04) 1px,
+                  rgba(0,0,0,0) 3px,
+                  rgba(0,0,0,0) 6px
+          );
+  mix-blend-mode: overlay;
+  opacity: 0.18;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* =========================
+   HEADER (less boxy, more "HUD")
+   ========================= */
+.smash-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  backdrop-filter: blur(14px);
+  background:
+          linear-gradient(90deg,
+          rgba(255, 60, 60, 0.18),
+          rgba(0,0,0,0.35) 35%,
+          rgba(90, 120, 255, 0.18)
+          );
+  border-bottom: 1px solid rgba(255,255,255,0.10);
 }
+
+.smash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+/* Brand = fight announcer vibe */
+.smash-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 900;
+}
+
+.smash-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #2bff7a;
+  box-shadow:
+          0 0 0 6px rgba(43,255,122,0.14),
+          0 0 18px rgba(43,255,122,0.55);
+}
+
+/* Make the header text POP */
+.smash-title {
+  font-size: 0.95rem;
+  color: #ffffff;
+  text-shadow:
+          0 0 12px rgba(255,255,255,0.35),
+          0 0 30px rgba(90,120,255,0.28);
+}
+
+/* =========================
+   NAV BUTTONS = arcade chips
+   ========================= */
+.smash-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.smash-nav-btn {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background:
+          linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  box-shadow:
+          0 10px 18px rgba(0,0,0,0.35),
+          inset 0 1px 0 rgba(255,255,255,0.10);
+  transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+}
+
+.smash-nav-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.15);
+  box-shadow:
+          0 14px 26px rgba(0,0,0,0.45),
+          0 0 18px rgba(90,120,255,0.22);
+}
+
+.smash-shell {
+  padding-top: 28px;
+  padding-bottom: 32px;
+}
+
+/* =========================
+   CARD = angled neon panel (less boxy)
+   ========================= */
+.smash-card {
+  position: relative;
+  padding: 26px;
+  border-radius: 26px;
+  background:
+          linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+          0 28px 60px rgba(0,0,0,0.55),
+          0 0 32px rgba(255,60,60,0.10),
+          0 0 32px rgba(90,120,255,0.10);
+  overflow: hidden;
+}
+
+/* Neon streak accent */
+.smash-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+          conic-gradient(
+                  from 210deg,
+                  rgba(255,60,60,0.0),
+                  rgba(255,60,60,0.35),
+                  rgba(90,120,255,0.35),
+                  rgba(80,255,170,0.20),
+                  rgba(255,60,60,0.0)
+          );
+  filter: blur(22px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* =========================
+   HEADERS = big, loud, fighting game
+   ========================= */
+.smash-card h1,
+.smash-card h2 {
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 10px;
+
+  /* "metal + glow" */
+  background: linear-gradient(180deg, #ffffff, #cfd6ff 35%, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+          0 0 18px rgba(255,255,255,0.22),
+          0 0 28px rgba(90,120,255,0.24),
+          0 0 38px rgba(255,60,60,0.18);
+}
+
+.smash-card h1 {
+  font-size: clamp(2.0rem, 3vw, 3.2rem);
+}
+
+.smash-card h5 {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 900;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 0 16px rgba(80,255,170,0.20);
+}
+
+.smash-card p {
+  color: rgba(255,255,255,0.86);
+  font-size: 1.05rem;
+}
+
+/* =========================
+   HOME GRID
+   ========================= */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .mode-grid { grid-template-columns: 1fr; }
+}
+
+/* Images: framed like a character select screen */
+.smash-hero-img {
+  width: 100%;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+          0 18px 40px rgba(0,0,0,0.55),
+          0 0 22px rgba(90,120,255,0.14);
+  transform: skewX(-1.5deg);
+}
+
+/* =========================
+   MODE BUTTONS (big, flashy, less boxy)
+   ========================= */
+.mode-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Base button */
+.mode-btn {
+  position: relative;
+  border: 0;
+  border-radius: 999px;
+  padding: 18px 18px;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-align: center;
+  color: #0a0c18;
+
+  transform: skewX(-10deg);
+  box-shadow:
+          0 18px 34px rgba(0,0,0,0.45),
+          inset 0 1px 0 rgba(255,255,255,0.35);
+  transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+  overflow: hidden;
+}
+
+/* Shine swipe */
+.mode-btn::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 60%;
+  height: 180%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: rotate(18deg);
+  opacity: 0.0;
+  transition: left 220ms ease, opacity 220ms ease;
+}
+
+.mode-btn:hover {
+  transform: skewX(-10deg) translateY(-3px) scale(1.02);
+  filter: brightness(1.05);
+}
+
+.mode-btn:hover::after {
+  left: 120%;
+  opacity: 0.85;
+}
+
+/* Two "teams" */
+.mode-btn.group {
+  background: linear-gradient(90deg, #ff4b4b 0%, #ff2f78 55%, #ffb84d 120%);
+  color: #fff;
+  text-shadow: 0 0 14px rgba(255,255,255,0.25);
+}
+
+.mode-btn.solo {
+  background: linear-gradient(90deg, #ffe66d 0%, #ffb84d 60%, #7cffd0 120%);
+}
+
+/* Mini row */
+.mode-mini-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* Mini buttons = pills with neon edge */
+.mode-mini {
+  border-radius: 999px;
+  padding: 13px 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: rgba(255,255,255,0.92);
+  background:
+          linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.12);
+  text-decoration: none;
+  text-align: center;
+  box-shadow:
+          0 14px 26px rgba(0,0,0,0.40);
+  transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+}
+
+.mode-mini:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+  box-shadow:
+          0 18px 30px rgba(0,0,0,0.50),
+          0 0 22px rgba(80,255,170,0.12);
+}
+
+/* =========================
+   FORMS: make inputs match theme
+   ========================= */
+.form-label {
+  color: rgba(255,255,255,0.86);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+
+.form-control {
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.form-control:focus {
+  border-color: rgba(90,120,255,0.55);
+  box-shadow: 0 0 0 0.25rem rgba(90,120,255,0.22);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+}
+
+/* Make the calculate button feel like a "FINISH HIM" button */
+#calcBtn {
+  border-radius: 999px !important;
+  font-weight: 1000;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: linear-gradient(90deg, #7cffd0 0%, #7aa7ff 55%, #ff4b4b 120%);
+  box-shadow:
+          0 18px 34px rgba(0,0,0,0.45),
+          0 0 26px rgba(90,120,255,0.16);
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+#calcBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+/* =========================
+   FOOTER = subtle HUD strip
+   ========================= */
+.smash-footer {
+  margin-top: 30px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.78);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.mains-panel {
+  margin-top: 26px;
+  padding: 18px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  box-shadow: 0 22px 50px rgba(0,0,0,0.45);
+}
+
+.mains-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .mains-grid { grid-template-columns: 1fr; }
+}
+
+.main-card {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+}
+
+/* Character list styling */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .characters-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.character-chip {
+  padding: 12px 12px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+  box-shadow: 0 14px 26px rgba(0,0,0,0.35);
+}
+
+.smash-home-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-shadow:
+          0 0 12px rgba(255,255,255,0.25),
+          0 0 26px rgba(90,120,255,0.22);
+}
+
+.smash-home-link:hover {
+  text-decoration: none;
+  filter: brightness(1.15);
+}
+

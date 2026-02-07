@@ -1,8 +1,41 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="smash-card">
+    <h1 class="mb-2">Super Smash Bros — Home</h1>
+    <p class="mb-4">
+        Welcome to Smash Tutor. This site is themed around Super Smash Bros and includes a tutor cost calculator.
+        I am probably the second best smash bros player in the core (don't find Aaron). Im still pretty good though, so you should really pay me to teach you how to be good at smash.
+    </p>
+
+    <div class="mode-grid">
+        <div>
+            <div class="mode-buttons">
+                <!-- Smash Characters (API Page) -->
+                <a class="mode-btn group" asp-controller="Home" asp-action="Characters">SMASH CHARACTERS</a>
+
+                <!--  Tutor Calculator button -->
+                <a class="mode-btn solo" asp-controller="Home" asp-action="Tutor">TUTOR CALCULATOR</a>
+            </div>
+
+            <div class="mt-4">
+                <h2 class="mb-2">Why I love Smash</h2>
+                <p class="mb-0">
+                    Super Smash Brothers Ultimate is the greatest invention on planet earth since Chocolate Milk and/or Mr. Clean. It is absolutely lit because you can't get 8 people together to all spam falcon punch and "show me your moves". Only true gamers understand the pure joy that can occur from landing an Ice Climber de-sync combo or a Donkey Kong down special dunk. Sakurai (the creator of Smash) is a legend and deserves 5 big booms!!!!!!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mains-panel mt-4">
+        <h2 class="mb-3">My Mains</h2>
+
+        <div class="mains-grid">
+            <!-- Inserting images of my mains from the images folder under wwwroot-->
+            <img class="main-card" src="~/images/dumb_dk.png" alt="Donkey Kong" />
+            <img class="main-card" src="~/images/yoshi.png" alt="Yoshi" />
+            <img class="main-card" src="~/images/ness.png" alt="Ness" />
+        </div>
+    </div>
 </div>

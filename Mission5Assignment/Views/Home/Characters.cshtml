@@ -1,0 +1,25 @@
+@model List<string>
+
+@{
+    // Sets the browser tab title
+    ViewData["Title"] = "Smash Characters";
+}
+
+<div class="smash-card">
+    <!-- Page heading -->
+    <h1 class="mb-2">Smash Ultimate Characters</h1>
+    <p class="mb-4">Pulled live from SmashBrosAPI.</p>
+
+    <!-- Grid that displays each character name from the model -->
+    <div class="characters-grid">
+        @foreach (var c in Model)
+        {
+            <div class="character-chip">@c</div>
+        }
+    </div>
+
+    <!-- Navigation back to the home page -->
+    <a class="smash-nav-btn mt-4 d-inline-block" asp-controller="Home" asp-action="Index">
+        ← Back to Home
+    </a>
+</div>

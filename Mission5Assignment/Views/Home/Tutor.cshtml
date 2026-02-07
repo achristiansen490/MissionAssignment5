@@ -1,0 +1,52 @@
+@{
+    // Sets the browser tab title
+    ViewData["Title"] = "Tutor Calculator";
+}
+
+<div class="smash-card">
+    <h1 class="mb-3">Smash Tutor Calculator</h1>
+    <p class="mb-4">
+        Enter hours you would like consulting. My rate is locked at $25.
+        Click calculate to see the total price.
+    </p>
+
+    <div class="row g-3">
+        <!-- Input for number of tutoring hours -->
+        <div class="col-md-4">
+            <label class="form-label">Hours Needed</label>
+            <input id="hours" class="form-control" type="number" min="0" step="0.5" placeholder="e.g., 2" />
+            <div id="hoursError" class="text-danger mt-1" style="display:none;">
+                Please enter a positive number of hours.
+            </div>
+        </div>
+
+        <!-- Read-only hourly rate -->
+        <div class="col-md-4">
+            <label class="form-label">Rate (per hour)</label>
+            <input id="rate" class="form-control" type="text" value="25" readonly />
+        </div>
+
+        <!-- Button triggers jQuery calculation -->
+        <div class="col-md-4 d-flex align-items-end">
+            <button id="calcBtn" class="btn btn-dark w-100" type="button">
+                Calculate Total Cost
+            </button>
+        </div>
+
+        <!-- Displays the calculated total -->
+        <div class="col-md-6">
+            <label class="form-label">Total</label>
+            <input id="total" class="form-control" type="text" readonly />
+        </div>
+    </div>
+
+    <!-- Navigation back to the home page -->
+    <a class="smash-nav-btn mt-4 d-inline-block" asp-controller="Home" asp-action="Index">
+        ← Back to Home
+    </a>
+</div>
+
+@section Scripts {
+    <!-- jQuery script that performs the calculation -->
+    <script src="~/js/tutorCalculator.js" asp-append-version="true"></script>
+}
